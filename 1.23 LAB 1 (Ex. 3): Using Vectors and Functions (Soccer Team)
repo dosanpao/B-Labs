@@ -1,0 +1,123 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void outputRoster(const vector<int> & jerseyNums, const vector<int> & playerRatings);
+void addPlayer(vector<int> & jerseyNums, vector<int> & playerRatings);
+void removePlayer(vector<int> & jerseyNums, vector<int> & playerRatings);
+void updatePlayerRating(const vector<int> & jerseyNums, vector<int> & playerRatings);
+void outputPlayersAboveRating(const vector<int> & jerseyNums, const vector<int> & playerRatings);
+void showMenu();
+
+int main() {
+   vector<int> jerseyNums;
+   vector<int> playerRatings;
+   int userNum;
+   char userOption;
+   
+    for (unsigned int i = 1; i <= 5; i++) {
+        cout << "Enter player " << i << "'s jersey number: ";
+        cin >> userNum;
+        jerseyNums.push_back(userNum);
+        cout << endl << "Enter player " << i << "'s rating: ";
+        cin >> userNum;
+        playerRatings.push_back(userNum);
+        cout << endl << endl;
+    }
+    outputRoster(jerseyNums, playerRatings);
+    showMenu();
+    while (cin >> userOption && userOption != 'q') {
+        cout << endl;
+        if (userOption == 'a') {
+            addPlayer(jerseyNums, playerRatings);
+        }
+        else if (userOption == 'd') {
+            removePlayer(jerseyNums, playerRatings);
+        }
+        else if (userOption == 'u') {
+            updatePlayerRating(jerseyNums, playerRatings);
+        }
+        else if (userOption == 'r') {
+           outputPlayersAboveRating(jerseyNums, playerRatings);
+        }
+        else if (userOption == 'o') {
+            outputRoster(jerseyNums, playerRatings);
+        }
+        showMenu();
+    }
+    cout << endl;
+    return 0;
+}
+void showMenu() {
+    cout << "MENU" << endl;
+    cout << "a - Add player" << endl;
+    cout << "d - Remove player" << endl;
+    cout << "u - Update player rating" << endl;
+    cout << "r - Output players above a rating" << endl;
+    cout << "o - Output roster" << endl;
+    cout << "q - Quit" << endl << endl;
+    cout << "Choose an option: ";
+}
+void outputRoster(const vector<int> & jerseyNums, const vector<int> & playerRatings) {
+    cout << "ROSTER" << endl;
+    for (unsigned int i = 1; i <= jerseyNums.size(); i++) {
+        cout << "Player " << i << " -- Jersey number: " << jerseyNums[i - 1] << ", Rating: " << playerRatings[i - 1] << endl;
+    }
+    cout << endl;
+}
+void addPlayer(vector<int> & jerseyNums, vector<int> & playerRatings) {
+    int newNum, newRating;
+    cout << "Enter another player's jersey number: ";
+    cin >> newNum;
+    cout << endl;
+    jerseyNums.push_back(newNum);
+    cout << "Enter another player's rating: ";
+    cin >> newRating;
+    cout << endl << endl;
+    playerRatings.push_back(newRating);
+}
+void removePlayer(vector<int> & jerseyNums, vector<int> & playerRatings) {
+    int numRemoved;
+    cout << "Enter a jersey number: ";
+    cin >> numRemoved;
+    cout << endl << endl;
+    for (unsigned int i = 0; i < jerseyNums.size(); i++) {
+        if (numRemoved == jerseyNums[i]) {
+            for (unsigned int j = i + 1; j < jerseyNums.size(); j++) {
+                jerseyNums[j - 1] = jerseyNums[j];
+                playerRatings[j - 1] = playerRatings[j];
+            }
+            jerseyNums.pop_back();
+            playerRatings.pop_back();
+        }
+    }
+}
+void updatePlayerRating(const vector<int> & jerseyNums, vector<int> & playerRatings) {
+    int jerseyNum, newRating;
+    cout << "Enter a jersey number: ";
+    cin >> jerseyNum;
+    cout << endl;
+    cout << "Enter a new rating for player: ";
+    cin >> newRating;
+    cout << endl;
+    for (unsigned int i = 0; i < jerseyNums.size(); i++) {
+        if (jerseyNum == jerseyNums[i]) {
+            playerRatings[i] = newRating;
+        }
+    }
+    cout << endl;
+}
+void outputPlayersAboveRating(const vector<int> & jerseyNums, const vector<int> & playerRatings) {
+    int rating;
+    cout << "Enter a rating: ";
+    cin >> rating;
+    cout << endl << endl;
+    cout << "ABOVE " << rating << endl;
+    for (unsigned int i = 1; i <= playerRatings.size(); i++) {
+        if (playerRatings[i - 1] > rating) {
+            cout << "Player " << i << " -- Jersey number: " << jerseyNums[i - 1] << ", Rating: " << playerRatings[i - 1] << endl;
+        }
+    }
+    cout << endl;
+}
+ 
