@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector> 
+using namespace std;
+
+void exactChange(int userTotal, vector<int>& coinVals) {
+    int currTotal = userTotal; 
+    coinVals[3] = (currTotal / 25);
+    currTotal = currTotal % 25;
+    coinVals[2] = (currTotal / 10);
+    currTotal = currTotal % 10;
+    coinVals[1] = (currTotal / 5);
+    currTotal = currTotal % 5;
+    coinVals[0] = (currTotal); 
+}
+int main() {
+   int inputVal;
+   vector<int> changeAmount(4); 
+   
+   cin >> inputVal;
+   exactChange(inputVal, changeAmount);
+
+   if (changeAmount[0] != 0) {
+       if (changeAmount[0] == 1) {
+            cout << "1 penny" << endl;
+       }
+       else {
+           cout << changeAmount[0] << " pennies" << endl;
+       }
+   }
+   if (changeAmount[1] != 0) {
+       if (changeAmount[1] == 1) {
+            cout << "1 nickel" << endl;
+       }
+       else {
+           cout << changeAmount[1] << " nickles" << endl;
+       }
+   }
+   if (changeAmount[2] != 0) {
+       if (changeAmount[2] == 1) {
+            cout << "1 dime" << endl;
+       }
+       else {
+           cout << changeAmount[2] << " dimes" << endl;
+       }
+   }
+   if (changeAmount[3] != 0) {
+       if (changeAmount[3] == 1) {
+            cout << "1 quarter" << endl;
+       }
+       else {
+           cout << changeAmount[3] << " quarters" << endl;
+       }
+   }
+    
+    if (inputVal <= 0) {
+        cout << "no change" << endl;
+    }
+    return 0;
+}
