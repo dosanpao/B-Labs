@@ -1,0 +1,67 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+
+int main(int argc, char *argv[]) {
+   
+   string inputFile;
+   string outputFile;
+   vector<int> inVect;
+   int input;
+   int sum = 0, count = 0;
+   int average;
+   char dummyChar;
+
+   inputFile = argv[1];
+   outputFile = argv[2];
+  
+   ifstream inFS;
+   inFS.open(inputFile);
+   
+   if (!inFS.is_open()) {
+      cout << "Error opening: " << inputFile << endl;
+      return 1;
+   }
+   
+   while (inFS >> input) {
+      dummyChar = ' ';
+
+      inVect.push_back(input);
+      inFS >> dummyChar;
+   }
+
+   inFS.clear();
+   inFS.close();
+   
+   for (unsigned int i = 0; i < inVect.size(); i++) {
+      sum += inVect[i];
+      count++;
+   }
+   average = sum / count;
+   
+   for (unsigned int i = 0; i < inVect.size(); i++) {
+      inVect[i] = inVect[i] - average;
+   }
+   
+   ofstream outFS;
+   outFS.open(outputFile);
+   
+   if (!outFS.is_open()) {
+      cout << "Error opening: " << outputFile << endl;
+      return 1;
+   }
+
+   for (unsigned int i = 0; i < inVect.size(); i++) {
+      outFS << inVect[i];
+      if (i < inVect.size() - 1) {
+         outFS << ',';
+      }
+   }
+ 
+   outFS.clear();
+   outFS.close();
+
+   return 0;
+}
